@@ -10,6 +10,7 @@ Source0: %{name}-%{version}.tar.bz2
 License: GPL
 Group: Monitoring
 Url: http://glpi.indepnet.org/
+BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires: apache-base > 2.0.54-5mdk
 BuildArch: noarch
 Requires: php-xml
