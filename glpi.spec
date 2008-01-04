@@ -1,6 +1,6 @@
 %define name glpi
-%define version 0.68.3
-%define release %mkrel 1 
+%define version 0.70
+%define release %mkrel 1
 
 Summary: A web based park management
 Name: %{name}
@@ -17,8 +17,8 @@ Requires: php-xml
 Requires: mod_php > 2.0.54
 
 %description
-GLPI is web based database application allowing to managed computers 
-and peripherals park. Its goal is to help technicians about maintenance 
+GLPI is web based database application allowing to managed computers
+and peripherals park. Its goal is to help technicians about maintenance
 expiration, stock flow and license counting.
 
 %prep
