@@ -1,12 +1,12 @@
 %define name glpi
-%define version 0.70
-%define release %mkrel 3
+%define version 0.71.1
+%define release %mkrel 1
 
 Summary: A web based park management
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %{name}-%{version}.tar.bz2
+Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: Monitoring
 Url: http://glpi.indepnet.org/
@@ -31,7 +31,7 @@ mkdir -p %buildroot%_var/www
 
 (
 cd %buildroot%_var/www
-tar xjf %{SOURCE0}
+tar xzf %{SOURCE0}
 )
 
 # remove .htaccess files
