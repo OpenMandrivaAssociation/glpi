@@ -1,5 +1,5 @@
 %define name glpi
-%define version 0.71.2
+%define version 0.71.3
 %define release %mkrel 1
 
 Summary: A web based park management
