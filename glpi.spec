@@ -1,5 +1,5 @@
 %define name glpi
-%define version 0.71.3
+%define version 0.71.5
 %define release %mkrel 1
 
 Summary: A web based park management
@@ -97,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc README.urpmi
-%doc CHANGELOG.txt AUTHORS.txt README.txt
+%doc CHANGELOG.txt README.txt
 %_sysconfdir/httpd/conf/webapps.d/%{name}.conf
 %_var/www/%name
 
