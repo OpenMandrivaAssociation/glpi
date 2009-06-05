@@ -1,20 +1,21 @@
 %define name glpi
-%define version 0.71.5
+%define version 0.71.6
 %define release %mkrel 1
 
 Summary: A web based park management
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: Monitoring
 Url: http://glpi.indepnet.org/
-BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildRequires: apache-base > 2.0.54-5mdk
-BuildArch: noarch
+Source0: %{name}-%{version}.tar.gz
 Requires: php-xml
 Requires: mod_php > 2.0.54
+BuildRequires:	rpm-helper >= 0.16
+BuildRequires:	rpm-mandriva-setup >= 1.23
+BuildArch: noarch
+BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %description
 GLPI is web based database application allowing to managed computers
@@ -25,7 +26,7 @@ expiration, stock flow and license counting.
 %setup -q -n %name
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 mkdir -p %buildroot%_var/www
 
@@ -35,11 +36,7 @@ tar xzf %{SOURCE0}
 )
 
 # remove .htaccess files
-find $RPM_BUILD_ROOT%{_var}/www/%{name} -name .htaccess -exec rm -f {} \;
-
-## strip away annoying ^M
-find $RPM_BUILD_ROOT%{_var}/www/%{name} -type f|xargs file|grep 'CRLF'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
-find $RPM_BUILD_ROOT%{_var}/www/%{name} -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
+find %{buildroot}%{_var}/www/%{name} -name .htaccess -exec rm -f {} \;
 
 mkdir -p %buildroot%_sysconfdir/httpd/conf/webapps.d
 
@@ -86,7 +83,7 @@ You'll need a MySQL server and a dedicated database.
 EOF
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %posttrans
 %_post_webapp
@@ -100,6 +97,3 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGELOG.txt README.txt
 %_sysconfdir/httpd/conf/webapps.d/%{name}.conf
 %_var/www/%name
-
-
-
