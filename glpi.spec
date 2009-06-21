@@ -1,18 +1,18 @@
 %define name glpi
 %define version 0.71.6
-%define release %mkrel 2
+%define release %mkrel 3
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
-Summary: A web based park management
-Name: %{name}
-Version: %{version}
-Release: %{release}
-License: GPL
-Group: Monitoring
-Url: http://glpi.indepnet.org/
-Source0: %{name}-%{version}.tar.gz
-Requires: php-xml
-Requires: mod_php > 2.0.54
+Name:       %{name}
+Version:    %{version}
+Release:    %{release}
+Summary:    A web based park management
+License:    GPL
+Group:      Monitoring
+Url:        http://glpi.indepnet.org/
+Source0:    %{name}-%{version}.tar.gz
+Requires:   php-xml
+Requires:   mod_php > 2.0.54
 BuildRequires:	rpm-helper >= 0.16
 BuildRequires:	rpm-mandriva-setup >= 1.23
 BuildArch: noarch
@@ -29,58 +29,94 @@ expiration, stock flow and license counting.
 %install
 rm -rf %{buildroot}
 
-mkdir -p %buildroot%_var/www
+install -d -m 755 %{buildroot}%{_datadir}/%{name}
 
-(
-cd %buildroot%_var/www
-tar xzf %{SOURCE0}
-)
+install -d -m 755 %{buildroot}%{_datadir}/%{name}/www
+install -m 644 *.php *.js %{buildroot}%{_datadir}/%{name}/www
 
-# remove .htaccess files
-find %{buildroot}%{_var}/www/%{name} -name .htaccess -exec rm -f {} \;
+for i in ajax css front help install lib pics plugins; do
+    cp -ar $i %{buildroot}%{_datadir}/%{name}/www/$i
+done
 
-mkdir -p %buildroot%_sysconfdir/httpd/conf/webapps.d
+mv %{buildroot}%{_datadir}/%{name}/www/install/mysql \
+    %{buildroot}%{_datadir}/%{name}/
+pushd %{buildroot}%{_datadir}/%{name}/www/install
+ln -s ../../mysql .
+popd
 
-cat > %buildroot%_sysconfdir/httpd/conf/webapps.d/%{name}.conf <<EOF
-# %{name} configuration
+for i in locales scripts inc; do
+    cp -ar $i %{buildroot}%{_datadir}/%{name}/$i
+    pushd %{buildroot}%{_datadir}/%{name}/www
+    ln -sf ../$i $i
+    popd
+done
 
-Alias /%{name} /var/www/%{name}
+install -d -m 755 %{buildroot}%{_sysconfdir}/glpi
+install -m 644 config/*.php %{buildroot}%{_sysconfdir}/glpi
+pushd %{buildroot}%{_datadir}/%{name}/www
+ln -sf ../../../..%{_sysconfdir}/glpi config
+popd
 
-<Directory /var/www/%{name}>
-    Allow from all
-    <Files helpdesk.html>
-	ForceType text/html;charset=utf-8
-    </Files>
-</Directory>
-<Directory /var/www/%{name}/docs>
-    Deny from all
-</Directory>
-<Directory /var/www/%{name}/docs>
-    Deny from all
-</Directory>
-<Directory /var/www/%{name}/backups/dump>
-    Deny from all
-</Directory>
-<Directory /var/www/%{name}/backups/dump>
-    Deny from all
-</Directory>
-<Directory /var/www/%{name}/glpi>
-    Deny from all
-</Directory>
+cat > %{buildroot}%{_sysconfdir}/glpi/config_path.php <<EOF
+<?php
+// for packaging defaults
 
+define("GLPI_CONFIG_DIR",     "%{_sysconfdir}/glpi");
+
+define("GLPI_DOC_DIR",        "%{_localstatedir}/lib/%{name}");
+define("GLPI_DUMP_DIR",       "%{_localstatedir}/lib/%{name}/_dumps");
+define("GLPI_CACHE_DIR",      "%{_localstatedir}/lib/%{name}/_cache/");
+define("GLPI_CRON_DIR",       "%{_localstatedir}/lib/%{name}/_cron");
+define("GLPI_SESSION_DIR",    "%{_localstatedir}/lib/%{name}/_sessions");
+define("GLPI_PLUGIN_DOC_DIR", "%{_localstatedir}/lib/%{name}/_plugins");
+define("GLPI_LOCK_DIR",       "%{_localstatedir}/lib/%{name}/_lock/");
+
+define("GLPI_LOG_DIR",        "%{_localstatedir}/log/%{name}");
+?>
 EOF
 
-cat > README.urpmi <<EOF
+install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d
+cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf <<EOF
+# %{name} configuration
 
-To properly end installation, you'll have to change permission on
-/var/www/%{name}/glpi/config
-/var/www/%{name}/docs
-/var/www/%{name}/backups/dump
-with chown apache
+Alias /%{name} %{_datadir}/%{name}/www
 
-To setup the application, go on http://localhost/glpi/
-You'll need a MySQL server and a dedicated database.
+<Directory %{_datadir}/%{name}/www>
+    Allow from all
+    # recommanded value
+    php_value memory_limit 64M
+</Directory>
 
+<Directory /usr/share/glpi/www/install>
+    # 15" should be enough for migration in most case
+    php_value max_execution_time 900
+    php_value memory_limit 128M
+</Directory>
+EOF
+
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_dumps
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_cache
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_cron
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_sessions
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_plugins
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_lock
+
+install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}
+
+install -d -m 755 %{buildroot}%{_sysconfdir}/logrotate.d
+cat > %{buildroot}%{_sysconfdir}/logrotate.d/%{name} <<EOF
+/var/log/glpi/*.log {
+    notifempty
+    missingok
+    create 644 apache apache
+}
+EOF
+
+install -d -m 755 -p %{buildroot}%{_sysconfdir}/cron.d
+cat > %{buildroot}%{_sysconfdir}/cron.d/%{name} <<EOF
+# Run cron from to execute task even when no user connected
+*/4 * * * * apache %{_bindir}/php %{_datadir}/%{name}/www/front/cron.php
 EOF
 
 %clean
@@ -94,7 +130,12 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README.urpmi
 %doc CHANGELOG.txt README.txt
-%_sysconfdir/httpd/conf/webapps.d/%{name}.conf
-%_var/www/%name
+%{_datadir}/%name
+%config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+%config(noreplace) %{_sysconfdir}/cron.d/%{name}
+%dir %attr(-,apache,apache) %{_sysconfdir}/glpi
+%config(noreplace) %{_sysconfdir}/glpi/*
+%attr(-,apache,apache) %{_localstatedir}/lib/%{name}
+%attr(-,apache,apache) %{_localstatedir}/log/%{name}
