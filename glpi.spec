@@ -1,6 +1,6 @@
 %define name glpi
 %define version 0.71.6
-%define release %mkrel 3
+%define release %mkrel 4
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
@@ -101,6 +101,7 @@ install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_cron
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_sessions
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_plugins
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_lock
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_tmp
 
 install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}
 
