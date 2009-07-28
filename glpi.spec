@@ -1,6 +1,6 @@
 %define name glpi
-%define version 0.71.6
-%define release %mkrel 4
+%define version 0.72
+%define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
@@ -34,7 +34,7 @@ install -d -m 755 %{buildroot}%{_datadir}/%{name}
 install -d -m 755 %{buildroot}%{_datadir}/%{name}/www
 install -m 644 *.php *.js %{buildroot}%{_datadir}/%{name}/www
 
-for i in ajax css front help install lib pics plugins; do
+for i in ajax css front install lib pics plugins; do
     cp -ar $i %{buildroot}%{_datadir}/%{name}/www/$i
 done
 
@@ -82,12 +82,13 @@ cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf <<EOF
 Alias /%{name} %{_datadir}/%{name}/www
 
 <Directory %{_datadir}/%{name}/www>
+    Options -FollowSymLinks
     Allow from all
     # recommanded value
     php_value memory_limit 64M
 </Directory>
 
-<Directory /usr/share/glpi/www/install>
+<Directory %{_datadir}/%{name}/www/install>
     # 15" should be enough for migration in most case
     php_value max_execution_time 900
     php_value memory_limit 128M
