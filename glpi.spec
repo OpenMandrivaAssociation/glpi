@@ -1,5 +1,5 @@
 %define name glpi
-%define version 0.72.3
+%define version 0.72.4
 %define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
@@ -15,6 +15,7 @@ Requires:   php-xml
 Requires:   mod_php > 2.0.54
 BuildRequires:	rpm-helper >= 0.16
 BuildRequires:	rpm-mandriva-setup >= 1.23
+Requires:  php-mysql
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
