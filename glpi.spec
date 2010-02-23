@@ -1,6 +1,6 @@
 %define name glpi
 %define version 0.72.3
-%define release %mkrel 3
+%define release %mkrel 4
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
@@ -46,6 +46,8 @@ pushd %{buildroot}%{_datadir}/%{name}
 ln -sf ../../..%{_sysconfdir}/glpi config
 popd
 
+find %{buildroot}%{_datadir}/%{name} -name .htaccess | xargs rm -f
+
 cat > %{buildroot}%{_sysconfdir}/glpi/config_path.php <<EOF
 <?php
 // for packaging defaults
@@ -80,6 +82,11 @@ Alias /%{name} %{_datadir}/%{name}
     # 15" should be enough for migration in most case
     php_value max_execution_time 900
     php_value memory_limit 128M
+</Directory>
+
+<Directory %{_datadir}/%{name}/files>
+    Order deny,allow
+    Deny from all
 </Directory>
 
 <Directory %{_datadir}/%{name}/inc>
