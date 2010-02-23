@@ -1,6 +1,6 @@
 %define name glpi
 %define version 0.72.3
-%define release %mkrel 2
+%define release %mkrel 3
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
@@ -9,13 +9,15 @@ Release:    %{release}
 Summary:    A web based park management
 License:    GPL
 Group:      Monitoring
-Url:        http://glpi.indepnet.org/
+Url:        http://www.glpi-project.org/
 Source0:    %{name}-%{version}.tar.gz
 Requires:   php-xml
-Requires:   mod_php > 2.0.54
-BuildRequires:	rpm-helper >= 0.16
-BuildRequires:	rpm-mandriva-setup >= 1.23
+Requires:   mod_php
 Requires:  php-mysql
+%if %mdkversion < 201010
+Requires(post):   rpm-helper
+Requires(postun):   rpm-helper
+%endif
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
@@ -32,30 +34,16 @@ rm -rf %{buildroot}
 
 install -d -m 755 %{buildroot}%{_datadir}/%{name}
 
-install -d -m 755 %{buildroot}%{_datadir}/%{name}/www
-install -m 644 *.php *.js %{buildroot}%{_datadir}/%{name}/www
+install -m 644 *.php *.js %{buildroot}%{_datadir}/%{name}
 
-for i in ajax css front install lib pics plugins; do
-    cp -ar $i %{buildroot}%{_datadir}/%{name}/www/$i
-done
-
-mv %{buildroot}%{_datadir}/%{name}/www/install/mysql \
-    %{buildroot}%{_datadir}/%{name}/
-pushd %{buildroot}%{_datadir}/%{name}/www/install
-ln -s ../../mysql .
-popd
-
-for i in locales scripts inc; do
-    cp -ar $i %{buildroot}%{_datadir}/%{name}/$i
-    pushd %{buildroot}%{_datadir}/%{name}/www
-    ln -sf ../$i $i
-    popd
+for i in ajax css files front inc install lib locales pics plugins scripts; do
+    cp -ar $i %{buildroot}%{_datadir}/%{name}
 done
 
 install -d -m 755 %{buildroot}%{_sysconfdir}/glpi
 install -m 644 config/*.php %{buildroot}%{_sysconfdir}/glpi
-pushd %{buildroot}%{_datadir}/%{name}/www
-ln -sf ../../../..%{_sysconfdir}/glpi config
+pushd %{buildroot}%{_datadir}/%{name}
+ln -sf ../../..%{_sysconfdir}/glpi config
 popd
 
 cat > %{buildroot}%{_sysconfdir}/glpi/config_path.php <<EOF
@@ -78,21 +66,40 @@ EOF
 
 install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d
 cat > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf <<EOF
-# %{name} configuration
+Alias /%{name} %{_datadir}/%{name}
 
-Alias /%{name} %{_datadir}/%{name}/www
-
-<Directory %{_datadir}/%{name}/www>
+<Directory %{_datadir}/%{name}>
     Options -FollowSymLinks
+    Order allow,deny
     Allow from all
     # recommanded value
     php_value memory_limit 64M
 </Directory>
 
-<Directory %{_datadir}/%{name}/www/install>
+<Directory %{_datadir}/%{name}/install>
     # 15" should be enough for migration in most case
     php_value max_execution_time 900
     php_value memory_limit 128M
+</Directory>
+
+<Directory %{_datadir}/%{name}/inc>
+    Order deny,allow
+    Deny from all
+</Directory>
+
+<Directory %{_datadir}/%{name}/locales>
+    Order deny,allow
+    Deny from all
+</Directory>
+
+<Directory %{_datadir}/%{name}/mysql>
+    Order deny,allow
+    Deny from all
+</Directory>
+
+<Directory %{_datadir}/%{name}/scripts>
+    Order deny,allow
+    Deny from all
 </Directory>
 EOF
 
@@ -119,17 +126,21 @@ EOF
 install -d -m 755 -p %{buildroot}%{_sysconfdir}/cron.d
 cat > %{buildroot}%{_sysconfdir}/cron.d/%{name} <<EOF
 # Run cron from to execute task even when no user connected
-*/4 * * * * apache %{_bindir}/php %{_datadir}/%{name}/www/front/cron.php
+*/4 * * * * apache %{_bindir}/php %{_datadir}/%{name}/front/cron.php
 EOF
 
 %clean
 rm -rf %{buildroot}
 
-%posttrans
+%post
+%if %mdkversion < 201010
 %_post_webapp
+%endif
 
 %postun
+%if %mdkversion < 201010
 %_postun_webapp
+%endif
 
 %files
 %defattr(-,root,root)
