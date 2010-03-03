@@ -1,13 +1,13 @@
-%define name glpi
-%define version 0.72.3
-%define release %mkrel 4
+%define name	glpi
+%define version	0.72.4
+%define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
 Version:    %{version}
 Release:    %{release}
 Summary:    A web based park management
-License:    GPL
+License:    GPLv2
 Group:      Monitoring
 Url:        http://www.glpi-project.org/
 Source0:    %{name}-%{version}.tar.gz
