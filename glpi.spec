@@ -1,6 +1,7 @@
 %define name	glpi
-%define version	0.72.4
-%define release %mkrel 1
+%define version	0.78
+%define pre     RC2
+%define release %mkrel 0.%{pre}.1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
@@ -10,7 +11,7 @@ Summary:    A web based park management
 License:    GPLv2
 Group:      Monitoring
 Url:        http://www.glpi-project.org/
-Source0:    %{name}-%{version}.tar.gz
+Source0:    http://forge.indepnet.net/attachments/download/635/%{name}-%{version}-%{pre}.tar.gz
 Requires:   php-xml
 Requires:   mod_php
 Requires:  php-mysql
