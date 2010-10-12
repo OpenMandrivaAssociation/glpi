@@ -1,7 +1,6 @@
 %define name	glpi
 %define version	0.78
-%define pre     RC2
-%define release %mkrel 0.%{pre}.1
+%define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
@@ -11,7 +10,7 @@ Summary:    A web based park management
 License:    GPLv2
 Group:      Monitoring
 Url:        http://www.glpi-project.org/
-Source0:    http://forge.indepnet.net/attachments/download/635/%{name}-%{version}-%{pre}.tar.gz
+Source0:    http://forge.indepnet.net/attachments/download/656/%{name}-%{version}.tar.gz
 Requires:   php-xml
 Requires:   mod_php
 Requires:  php-mysql
@@ -37,7 +36,7 @@ install -d -m 755 %{buildroot}%{_datadir}/%{name}
 
 install -m 644 *.php *.js %{buildroot}%{_datadir}/%{name}
 
-for i in ajax css files front inc install lib locales pics plugins scripts; do
+for i in ajax css front inc install lib locales pics plugins scripts; do
     cp -ar $i %{buildroot}%{_datadir}/%{name}
 done
 
@@ -56,12 +55,13 @@ cat > %{buildroot}%{_sysconfdir}/glpi/config_path.php <<EOF
 define("GLPI_CONFIG_DIR",     "%{_sysconfdir}/glpi");
 
 define("GLPI_DOC_DIR",        "%{_localstatedir}/lib/%{name}");
-define("GLPI_DUMP_DIR",       "%{_localstatedir}/lib/%{name}/_dumps");
 define("GLPI_CACHE_DIR",      "%{_localstatedir}/lib/%{name}/_cache/");
 define("GLPI_CRON_DIR",       "%{_localstatedir}/lib/%{name}/_cron");
-define("GLPI_SESSION_DIR",    "%{_localstatedir}/lib/%{name}/_sessions");
-define("GLPI_PLUGIN_DOC_DIR", "%{_localstatedir}/lib/%{name}/_plugins");
+define("GLPI_DUMP_DIR",       "%{_localstatedir}/lib/%{name}/_dumps");
+define("GLPI_GRAPH_DIR",      "%{_localstatedir}/lib/%{name}/_graphs");
 define("GLPI_LOCK_DIR",       "%{_localstatedir}/lib/%{name}/_lock/");
+define("GLPI_PLUGIN_DOC_DIR", "%{_localstatedir}/lib/%{name}/_plugins");
+define("GLPI_SESSION_DIR",    "%{_localstatedir}/lib/%{name}/_sessions");
 
 define("GLPI_LOG_DIR",        "%{_localstatedir}/log/%{name}");
 ?>
@@ -112,13 +112,15 @@ Alias /%{name} %{_datadir}/%{name}
 EOF
 
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}
-install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_dumps
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_cache
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_cron
-install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_sessions
-install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_plugins
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_dumps
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_graphs
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_lock
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_plugins
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_sessions
 install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_tmp
+install -d -m 755 %{buildroot}%{_localstatedir}/lib/%{name}/_uploads
 
 install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}
 
