@@ -1,5 +1,5 @@
 %define name	glpi
-%define version	0.78.1
+%define version	0.78.2
 %define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
