@@ -1,5 +1,6 @@
+# don't update this package before a fusioninventory plugin is available
 %define name	glpi
-%define version	0.80.1
+%define version	0.78.5
 %define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
