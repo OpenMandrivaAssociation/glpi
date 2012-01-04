@@ -1,5 +1,5 @@
 # don't update this package before a fusioninventory plugin is available
-#Epoch: 1
+Epoch: 1
 %define name	glpi
 %define version	0.80.5
 %define release %mkrel 2
