@@ -1,8 +1,8 @@
 # don't update this package before a fusioninventory plugin is available
 Epoch: 1
 %define name	glpi
-%define version	0.80.5
-%define release %mkrel 2
+%define version	0.80.6
+%define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Name:       %{name}
@@ -12,7 +12,7 @@ Summary:    A web based park management
 License:    GPLv2
 Group:      Monitoring
 Url:        http://www.glpi-project.org/
-Source0:    http://forge.indepnet.net/attachments/download/656/%{name}-%{version}.tar.gz
+Source0:    http://forge.indepnet.net/attachments/download/656/%{name}-0.80.61.tar.gz
 Requires:   php-xml
 Requires:   mod_php
 Requires:   php-mysql
