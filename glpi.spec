@@ -1,39 +1,42 @@
+%if %mandriva_branch == Cooker
+%define release %mkrel 2
+%else
+%define subrel 1
+%define release %mkrel 0
+%endif
+
 # don't update this package before a fusioninventory plugin is available
-Epoch: 1
-%define name	glpi
-%define version	0.80.6
-%define release %mkrel 1
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
-Name:       %{name}
-Version:    %{version}
-Release:    %{release}
-Summary:    A web based park management
-License:    GPLv2
-Group:      Monitoring
-Url:        http://www.glpi-project.org/
-Source0:    http://forge.indepnet.net/attachments/download/656/%{name}-0.80.61.tar.gz
-Requires:   php-xml
-Requires:   mod_php
-Requires:   php-mysql
-Requires:   php-mbstring
+Summary: A web based park management
+Name: glpi
+Version: 0.80.6
+Release: %{release}
+License: GPLv2
+Group: Monitoring
+URL: http://www.glpi-project.org/
+Source0: http://forge.indepnet.net/attachments/download/656/%{name}-0.80.61.tar.gz
+Requires: php-xml
+Requires: mod_php
+Requires: php-mysql
+Requires: php-mbstring
 %if %mdkversion < 201010
-Requires(post):   rpm-helper
-Requires(postun):   rpm-helper
+Requires(post): rpm-helper
+Requires(postun): rpm-helper
 %endif
 BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}
+Epoch: 1
 
 %description
-GLPI is web based database application allowing to managed computers
-and peripherals park. Its goal is to help technicians about maintenance
-expiration, stock flow and license counting.
+GLPI is web based database application allowing to managed computers and
+peripherals park. Its goal is to help technicians about maintenance expiration,
+stock flow and license counting.
 
 %prep
+
 %setup -q -n %name
 
 %install
-rm -rf %{buildroot}
 
 install -d -m 755 %{buildroot}%{_datadir}/%{name}
 
@@ -56,7 +59,6 @@ cat > %{buildroot}%{_sysconfdir}/glpi/config_path.php <<EOF
 // for packaging defaults
 
 define("GLPI_CONFIG_DIR",     "%{_sysconfdir}/glpi");
-
 define("GLPI_DOC_DIR",        "%{_localstatedir}/lib/%{name}");
 define("GLPI_CACHE_DIR",      "%{_localstatedir}/lib/%{name}/_cache/");
 define("GLPI_CRON_DIR",       "%{_localstatedir}/lib/%{name}/_cron");
@@ -65,7 +67,6 @@ define("GLPI_GRAPH_DIR",      "%{_localstatedir}/lib/%{name}/_graphs");
 define("GLPI_LOCK_DIR",       "%{_localstatedir}/lib/%{name}/_lock/");
 define("GLPI_PLUGIN_DOC_DIR", "%{_localstatedir}/lib/%{name}/_plugins");
 define("GLPI_SESSION_DIR",    "%{_localstatedir}/lib/%{name}/_sessions");
-
 define("GLPI_LOG_DIR",        "%{_localstatedir}/log/%{name}");
 ?>
 EOF
@@ -142,9 +143,6 @@ cat > %{buildroot}%{_sysconfdir}/cron.d/%{name} <<EOF
 */4 * * * * apache %{_bindir}/php %{_datadir}/%{name}/front/cron.php
 EOF
 
-%clean
-rm -rf %{buildroot}
-
 %post
 %if %mdkversion < 201010
 %_post_webapp
@@ -156,7 +154,6 @@ rm -rf %{buildroot}
 %endif
 
 %files
-%defattr(-,root,root)
 %doc CHANGELOG.txt README.txt
 %{_datadir}/%name
 %config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/%{name}.conf
