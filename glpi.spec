@@ -10,12 +10,12 @@
 
 Summary: A web based park management
 Name: glpi
-Version: 0.80.6
+Version: 0.80.7
 Release: %{release}
 License: GPLv2
 Group: Monitoring
 URL: http://www.glpi-project.org/
-Source0: http://forge.indepnet.net/attachments/download/656/%{name}-0.80.61.tar.gz
+Source0: http://forge.indepnet.net/attachments/download/656/%{name}-%{version}.tar.gz
 Requires: php-xml
 Requires: mod_php
 Requires: php-mysql
