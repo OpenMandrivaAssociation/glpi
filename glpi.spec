@@ -1,5 +1,5 @@
 %if %mandriva_branch == Cooker
-%define release %mkrel 2
+%define release %mkrel 1
 %else
 %define subrel 1
 %define release %mkrel 0
@@ -10,7 +10,7 @@
 
 Summary: A web based park management
 Name: glpi
-Version: 0.80.7
+Version: 0.83
 Release: %{release}
 License: GPLv2
 Group: Monitoring
