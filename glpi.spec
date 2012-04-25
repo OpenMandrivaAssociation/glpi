@@ -10,7 +10,7 @@
 
 Summary: A web based park management
 Name: glpi
-Version: 0.83
+Version: 0.83.1
 Release: %{release}
 License: GPLv2
 Group: Monitoring
