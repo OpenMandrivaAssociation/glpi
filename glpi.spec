@@ -25,7 +25,7 @@ Requires(post): rpm-helper
 Requires(postun): rpm-helper
 %endif
 BuildArch: noarch
-Epoch: 0
+Epoch: 1
 
 %description
 GLPI is web based database application allowing to managed computers and
