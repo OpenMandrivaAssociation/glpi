@@ -5,12 +5,15 @@
 %define release %mkrel 0
 %endif
 
+%define relpkg 1
+%define version 0.83.4
+
 # don't update this package before a fusioninventory plugin is available
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Summary: A web based park management
 Name: glpi
-Version: 0.83.4
+Version: $version$relpkg
 Release: %{release}
 License: GPLv2
 Group: Monitoring
