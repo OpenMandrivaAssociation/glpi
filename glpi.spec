@@ -10,6 +10,7 @@
 
 # don't update this package before a fusioninventory plugin is available
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
+Epoch: 1
 
 Summary: A web based park management
 Name: glpi
@@ -28,7 +29,7 @@ Requires(post): rpm-helper
 Requires(postun): rpm-helper
 %endif
 BuildArch: noarch
-Epoch: 1
+#Epoch: 1
 
 %description
 GLPI is web based database application allowing to managed computers and
