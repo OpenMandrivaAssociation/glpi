@@ -1,24 +1,24 @@
 %if %mandriva_branch == Cooker
-%define release %mkrel 1
+%define release %mkrel 2
 %else
-%define subrel 1
-%define release %mkrel 0
+%define subrel 2
+%define release %mkrel 1
 %endif
 
 %define relpkg 0
-%define ver 0.83.4
+%define srcver 0.83.4
 
 # don't update this package before a fusioninventory plugin is available
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Summary: A web based park management
 Name: glpi
-Version: 0.83.40
+Version: %{srcver}
 Release: %{release}
 License: GPLv2
 Group: Monitoring
 URL: http://www.glpi-project.org/
-Source0: http://forge.indepnet.net/attachments/download/656/%{name}-%{ver}.tar.gz
+Source0: http://forge.indepnet.net/attachments/download/656/%{name}-%{version}.tar.gz
 Requires: php-xml
 Requires: mod_php
 Requires: php-mysql
