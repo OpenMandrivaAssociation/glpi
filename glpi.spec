@@ -1,7 +1,7 @@
 %if %mandriva_branch == Cooker
-%define release %mkrel 2
+%define release %mkrel 1
 %else
-%define subrel 2
+%define subrel 1
 %define release %mkrel 1
 %endif
 
@@ -20,7 +20,7 @@ Release: %{release}
 License: GPLv2
 Group: Monitoring
 URL: http://www.glpi-project.org/
-Source0: http://forge.indepnet.net/attachments/download/656/%{name}-%{version}.tar.gz
+Source0: http://forge.indepnet.net/attachments/download/656/%{name}-%{srcver}.tar.gz
 Requires: php-xml
 Requires: mod_php
 Requires: php-mysql
