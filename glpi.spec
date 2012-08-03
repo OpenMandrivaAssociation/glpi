@@ -10,11 +10,12 @@
 
 # don't update this package before a fusioninventory plugin is available
 %define _requires_exceptions pear(domxml-php4-to-php5.php)
+
 Epoch: 1
 
 Summary: A web based park management
 Name: glpi
-Version: %{srcver}
+Version: %{srcver}%{relpkg}
 Release: %{release}
 License: GPLv2
 Group: Monitoring
