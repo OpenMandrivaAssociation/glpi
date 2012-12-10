@@ -168,3 +168,171 @@ EOF
 %config(noreplace) %{_sysconfdir}/glpi/*
 %attr(-,apache,apache) %{_localstatedir}/lib/%{name}
 %attr(-,apache,apache) %{_localstatedir}/log/%{name}
+
+
+%changelog
+* Fri Aug 03 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.83.40-1mdv2012.0
++ Revision: 811648
+- update to 0.83.4
+
+* Fri Jul 13 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.83.31-1
++ Revision: 809120
+- update to 0.83.31
+
+* Mon Jun 11 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.83.2-1
++ Revision: 804444
+- update to 0.83.2
+
+* Wed Apr 25 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.83.1-1
++ Revision: 793305
+- update to 0.83.1
+- update to 0.83.1
+
+* Mon Apr 09 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.83-1
++ Revision: 790018
+- update version to 0.83
+
+* Fri Feb 10 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.80.7-2
++ Revision: 772435
+- new version 0.80.7
+
+* Sat Feb 04 2012 Oden Eriksson <oeriksson@mandriva.com> 1:0.80.6-2
++ Revision: 771124
+- various fixes
+
+* Thu Jan 05 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.80.6-1
++ Revision: 757969
+- add new release 0.80.6
+
+* Wed Jan 04 2012 Sergey Zhemoitel <serg@mandriva.org> 1:0.80.5-2
++ Revision: 756433
++ rebuild (emptylog)
+
+* Sun Nov 06 2011 Sergey Zhemoitel <serg@mandriva.org> 1:0.80.5-1
++ Revision: 722492
+- new release 0.8.5
+
+* Sun Oct 16 2011 Sergey Zhemoitel <serg@mandriva.org> 1:0.80.4-1
++ Revision: 704919
+- imported package glpi
+- new version 0.80.4
+
+* Wed Sep 21 2011 Sergey Zhemoitel <serg@mandriva.org> 0.80.31-1
++ Revision: 700765
+- new release 0.80.31
+
+* Sat Aug 13 2011 Sergey Zhemoitel <serg@mandriva.org> 0.80.2-1
++ Revision: 694398
+- new release 0.80.2
+- new release 0.80.2
+- new release 0.80.1
+- update to 0.80.1 release
+
+  + Guillaume Rousse <guillomovitch@mandriva.org>
+    - revert to 0.78.x branch, for fusioninventory compatibility
+
+* Tue May 31 2011 Guillaume Rousse <guillomovitch@mandriva.org> 0.80-1
++ Revision: 682107
+- new version
+
+* Wed May 11 2011 Guillaume Rousse <guillomovitch@mandriva.org> 0.78.5-1
++ Revision: 673563
+- new version
+- new version
+
+  + Sergey Zhemoitel <serg@mandriva.org>
+    - update new version 0.78.3
+
+* Sun Jan 23 2011 Guillaume Rousse <guillomovitch@mandriva.org> 0.78.2-1
++ Revision: 632442
+- new version
+
+* Mon Nov 15 2010 Guillaume Rousse <guillomovitch@mandriva.org> 0.78.1-1mdv2011.0
++ Revision: 597762
+- new version
+
+* Tue Oct 12 2010 Guillaume Rousse <guillomovitch@mandriva.org> 0.78-1mdv2011.0
++ Revision: 585228
+- 0.78 final
+
+* Sat Jul 17 2010 Guillaume Rousse <guillomovitch@mandriva.org> 0.78-0.RC2.1mdv2011.0
++ Revision: 554588
+- new version
+
+* Wed Mar 03 2010 Sandro Cazzaniga <kharec@mandriva.org> 0.72.4-1mdv2010.1
++ Revision: 513763
+- New version
+- fix License
+
+* Tue Feb 23 2010 Guillaume Rousse <guillomovitch@mandriva.org> 0.72.3-4mdv2010.1
++ Revision: 510449
+- don't ship .htaccess files
+
+* Tue Feb 23 2010 Guillaume Rousse <guillomovitch@mandriva.org> 0.72.3-3mdv2010.1
++ Revision: 510433
+- rely on filetrigger for reloading apache configuration begining with 2010.1,
+  rpm-helper macros otherwise
+- install everything directly under %%{_datadir}/%%{name}, and use apache
+  configuration to restrict accesses
+
+* Fri Nov 20 2009 Anne Nicolas <ennael@mandriva.org> 0.72.3-2mdv2010.1
++ Revision: 467625
+- Fix #52614 in cooker
+
+* Thu Nov 12 2009 Anne Nicolas <ennael@mandriva.org> 0.72.3-1mdv2010.1
++ Revision: 465413
+- new version
+
+  + Guillaume Rousse <guillomovitch@mandriva.org>
+    - new version
+
+* Thu Jun 25 2009 Guillaume Rousse <guillomovitch@mandriva.org> 0.71.6-4mdv2010.0
++ Revision: 389132
+- add missing directory under GLPI_DOC_DIR (Remi Collet)
+
+* Sun Jun 21 2009 Guillaume Rousse <guillomovitch@mandriva.org> 0.71.6-3mdv2010.0
++ Revision: 387919
+- FHS setup, following upstream advices
+  (https://dev.indepnet.net/glpi/wiki/GlpiPackaging)
+
+* Sun Jun 07 2009 Guillaume Rousse <guillomovitch@mandriva.org> 0.71.6-2mdv2010.0
++ Revision: 383461
+- fix dependencies
+
+* Fri Jun 05 2009 Guillaume Rousse <guillomovitch@mandriva.org> 0.71.6-1mdv2010.0
++ Revision: 383021
+- new version
+- don't duplicate spec-helper job
+- fix build dependencies
+
+* Wed Jan 28 2009 Jérôme Soyer <saispo@mandriva.org> 0.71.5-1mdv2009.1
++ Revision: 334794
+- New upstream release
+
+* Sun Jan 04 2009 Olivier Thauvin <nanardon@mandriva.org> 0.71.3-1mdv2009.1
++ Revision: 324879
+- 0.71.3
+
+* Thu Nov 13 2008 Nicolas Lécureuil <nlecureuil@mandriva.com> 0.71.2-1mdv2009.1
++ Revision: 302671
+- New version 0.71.2
+
+* Tue Sep 09 2008 Olivier Thauvin <nanardon@mandriva.org> 0.71.1-1mdv2009.0
++ Revision: 283114
+- 0.71.1
+
+* Thu Jul 24 2008 Thierry Vignaud <tv@mandriva.org> 0.70-3mdv2009.0
++ Revision: 246211
+- rebuild
+
+* Fri Jan 04 2008 Jérôme Soyer <saispo@mandriva.org> 0.70-1mdv2008.1
++ Revision: 145053
+- New release
+
+* Fri Dec 21 2007 Olivier Blin <blino@mandriva.org> 0.68.3-1mdv2008.1
++ Revision: 136445
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
