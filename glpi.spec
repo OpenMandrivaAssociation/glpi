@@ -1,8 +1,8 @@
 %if %mandriva_branch == Cooker
-%define release %mkrel 1
+%define release: 2
 %else
 %define subrel 1
-%define release %mkrel 1
+%define release: 2
 %endif
 
 %define relpkg 0
@@ -148,15 +148,7 @@ cat > %{buildroot}%{_sysconfdir}/cron.d/%{name} <<EOF
 */4 * * * * apache %{_bindir}/php %{_datadir}/%{name}/front/cron.php
 EOF
 
-%post
-%if %mdkversion < 201010
-%_post_webapp
-%endif
 
-%postun
-%if %mdkversion < 201010
-%_postun_webapp
-%endif
 
 %files
 %doc CHANGELOG.txt README.txt
