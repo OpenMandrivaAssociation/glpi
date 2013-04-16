@@ -1,15 +1,14 @@
 %if %mandriva_branch == Cooker
-%define release: 3
+%define release 3
 %else
 %define subrel 1
-%define release: 3
+%define release 3
 %endif
 
 %define relpkg 0
 %define srcver 0.83.4
 
 # don't update this package before a fusioninventory plugin is available
-%define _requires_exceptions pear(domxml-php4-to-php5.php)
 
 Epoch: 1
 
