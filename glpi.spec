@@ -22,6 +22,7 @@ URL: http://www.glpi-project.org/
 Source0: http://forge.indepnet.net/attachments/download/656/%{name}-%{srcver}.tar.gz
 Requires: php-xml
 Requires: mod_php
+Requires: apache-mod_socache_shmcb # if we're using apache...
 Requires: php-mysql
 Requires: php-mbstring
 %if %mdkversion < 201010
@@ -81,8 +82,7 @@ Alias /%{name} %{_datadir}/%{name}
 
 <Directory %{_datadir}/%{name}>
     Options -FollowSymLinks
-    Order allow,deny
-    Allow from all
+    Require all granted
     # recommanded value
     php_value memory_limit 64M
 </Directory>
@@ -94,28 +94,23 @@ Alias /%{name} %{_datadir}/%{name}
 </Directory>
 
 <Directory %{_datadir}/%{name}/files>
-    Order deny,allow
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_datadir}/%{name}/inc>
-    Order deny,allow
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_datadir}/%{name}/locales>
-    Order deny,allow
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_datadir}/%{name}/mysql>
-    Order deny,allow
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_datadir}/%{name}/scripts>
-    Order deny,allow
-    Deny from all
+    Require all denied
 </Directory>
 EOF
 
