@@ -1,8 +1,8 @@
 %if %mandriva_branch == Cooker
-%define release 3
+%define release 4
 %else
 %define subrel 1
-%define release 3
+%define release 4
 %endif
 
 %define relpkg 0
@@ -25,10 +25,6 @@ Requires: mod_php
 Requires: apache-mod_socache_shmcb # if we're using apache...
 Requires: php-mysql
 Requires: php-mbstring
-%if %mdkversion < 201010
-Requires(post): rpm-helper
-Requires(postun): rpm-helper
-%endif
 BuildArch: noarch
 #Epoch: 1
 
