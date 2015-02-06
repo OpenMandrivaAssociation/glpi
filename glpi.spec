@@ -1,8 +1,8 @@
 %if %mandriva_branch == Cooker
-%define release 4
+%define release 5
 %else
 %define subrel 1
-%define release 4
+%define release 5
 %endif
 
 %define relpkg 0
