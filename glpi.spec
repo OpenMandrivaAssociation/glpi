@@ -18,7 +18,7 @@ Version: %{srcver}%{relpkg}
 Release: %{release}
 License: GPLv2
 Group: Monitoring
-URL: http://www.glpi-project.org/
+URL: https://www.glpi-project.org/
 Source0: http://forge.indepnet.net/attachments/download/656/%{name}-%{srcver}.tar.gz
 Requires: php-xml
 Requires: mod_php
